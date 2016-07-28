@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset = "UTF-8">
+  <title>hello</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+</head>
+<body>
+<h1 id="question" style="text-align:center;">click to start</h1>
+<script>
+  $(function(){
+
+    var i = 0;
+    var missType = 0;
+    var wordsCount = 0;
+    var start = null
+    var end = null
+      var words = ["apple","imagine","sky","supply","west"];
+      $("#question").on('click',function(){
+        $(this).text(words[i]);
+        start = new Date().getTime();
+        missType = 0;
+      });
+
+      $(this).on('keypress',function(e){
+        if ($("#question").text() != "click to start"){
+        if ($("#question").text().substr(0,1) == String.fromCharCode(e.keyCode)){
+        var new_word = $("#question").text().substr(1);
+        $("#question").text(new_word);
+      }else{
+        missType += 1;
+      }
+    }
+    });
+
+      $(this).on('keyup',function(){
+        if($("#question").text() == ""){
+          wordsCount += words[i].length;
+          if(words[i+1] != null){
+          i += 1;
+          $("#question").text(words[i]);
+        }else{
+          end = new Date().getTime();
+          var total = end -start;
+          alert("文字合計は、"+ wordsCount +"で、ミス回数は" + missType + "で" + total/1000 + "かかりました。");
+          console.timeEnd("time");
+          i = 0;
+          missType = 0;
+          wordsCount = 0;
+          $("#question").text("click to start");
+        };
+
+        };
+
+      });
+
+
+        });
+
+
+
+</script>
+</body>
+</html>
